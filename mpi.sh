@@ -1,9 +1,9 @@
-#!/bin/bash
+# !/bin/bash
 # Missing package installer for (X)ubuntu 16.04 and 14.04.
 # A simple script for installing some of the missing software (i like to use) on new systems
-# 2016.30.09 by TRi
+# 2016.01.10 by TRi
 
-VER="0.3"
+VER="0.4"
 DIST_V="$(lsb_release -r -s)"
 DIST_N="$(lsb_release -i -s)"
 
@@ -61,8 +61,8 @@ function install_update_script()
 	echo -e "\nInstalling update script"
 	file_tmp="/tmp/mkupdate"
 	file_dst="/usr/bin/mkupdate"
-	ubuntu_16="sudo apt update && sudo apt upgrade && sudo apt autoremove && sudo apt autoclean"
-	ubuntu_14="sudo apt update && sudo apt upgrade && sudo apt autoremove && sudo apt-get autoremove"
+	apt_get="sudo apt update && sudo apt upgrade && sudo apt autoremove && sudo apt autoclean"
+	apt="sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoremove"
 
 	if [ -f "$file_tmp" ]
 	then
@@ -70,13 +70,28 @@ function install_update_script()
 	fi
 	touch $file_tmp
 	echo -e "#!/bin/sh" >> $file_tmp
-	if [ $DIST_V == "16.04" ]
+	if [ $DIST_N == "Ubuntu" ]
 	then
-		echo -e $ubuntu_16 >> $file_tmp
 
-	elif [ $DIST_V == "14.04" ]
+		if [ $DIST_V == "16.04" ]
+		then
+			echo -e $apt >> $file_tmp
+
+		elif [ $DIST_V == "14.04" ]
+		then
+			echo -e $apt_get >> $file_tmp
+		fi
+
+	elif [ $DIST_N == "LinuxMint" ]
 	then
-		echo -e $ubuntu_14 >> $file_tmp
+
+		if [ $DIST_V == "18" ]
+		then
+			echo -e $apt >> $file_tmp
+		else
+			echo -e $apt_get >> $file_tmp
+		fi
+
 	fi
 
 	if [ -f "$file_dst" ]
@@ -225,15 +240,29 @@ function install_ext_docker()
 		rm $file_tmp
 	fi
 	touch $file_tmp
-	if [ $DIST_V == "16.04" ]
+
+	if [ $DIST_N == "Ubuntu" ]
 	then
-		echo -e "deb https://apt.dockerproject.org/repo ubuntu-xenial main" >> $file_tmp
+
+		if [ $DIST_V == "16.04" ]
+		then
+			echo -e "deb https://apt.dockerproject.org/repo ubuntu-xenial main" >> $file_tmp
 
 
-	elif [ $DIST_V == "14.04" ]
+		elif [ $DIST_V == "14.04" ]
+		then
+			echo -e "deb https://apt.dockerproject.org/repo ubuntu-trusty main" >> $file_tmp
+		fi
+
+	elif [ $DIST_N == "LinuxMint" ]
 	then
-		echo -e "deb https://apt.dockerproject.org/repo ubuntu-trusty main" >> $file_tmp
+
+			if [ $DIST_V == "18" ]
+			then
+				echo -e "deb https://apt.dockerproject.org/repo ubuntu-xenial main" >> $file_tmp
+			fi
 	fi
+
 	if [ -f "$file_dst" ]
 	then
 		sudo rm $file_dst

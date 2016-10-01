@@ -1,10 +1,10 @@
 # missing-package-installer
-*missing package installer (mpi)* is  a simple bash script to install some of the missing software (i like to use) on a fresh installation of (x)ubuntu 16.04 or 14.04. It has the simple purpose to automate the installation of some packages. Therefore the selecetion of the software packages are based and tended on my own opinion. The script was tested only on xubuntu 16.04 and 14.04.
+*missing package installer (mpi)* is  a simple bash script to install some of the missing software (i like to use) on a fresh installation of (x)ubuntu 16.04 or 14.04. It has the simple purpose to automate the installation of some packages. Therefore the selecetion of the software packages are based and tended on my own opinion. The script was tested only on xubuntu 16.04, 14.04 and LinuxMint 18 (XFCE).
 
 Simply choose from a variety of software package categories you would like to install.<br>
 And as always: if you find it usefull, use it at your own risk.
 
-![missing package installer](/img/msi.png "missing package installer")
+![missing package installer](/img/mpi.png "missing package installer")
 
 ---
 ## Package Description
