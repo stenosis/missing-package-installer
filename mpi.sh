@@ -1,16 +1,16 @@
 # !/bin/bash
 # Missing package installer for (X)ubuntu 16.04 and 14.04.
 # A simple script for installing some of the missing software (i like to use) on new systems
-# 2016.01.10 by TRi
+# 2016.10.06 by TRi
 
-VER="0.4"
+VER="0.4.1"
 DIST_V="$(lsb_release -r -s)"
 DIST_N="$(lsb_release -i -s)"
 
 PKG_SYS="mc htop conky imwheel git tig gdb curl python-pip keepassx gufw gparted p7zip-full bleachbit compton wmctrl build-essential kdocker terminator scrot redshift gtk-redshift geany geany-common synaptic aptitude cups csh lib32stdc++6"
 PKG_MEDIA="vlc soundconverter easytag sound-juicer libdvdread4 brasero ubuntu-restricted-extras"
 PKG_OFFICE="pdfshuffler pdfchain libreoffice-impress"
-PKG_LATEX="texstudio lyx lyx-common"
+PKG_LATEX="texstudio lyx lyx-common texlive texlive-lang-german"
 PKG_INET="mumble corebird filezilla polari"
 PKG_INET_14="mumble filezilla xchat-gnome"
 PKG_GFX="imagemagick inkscape gimp xsane"
