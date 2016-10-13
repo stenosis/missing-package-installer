@@ -1,9 +1,9 @@
 # !/bin/bash
 # Missing package installer for (X)ubuntu 16.04 and 14.04.
 # A simple script for installing some of the missing software (i like to use) on new systems
-# 2016.10.06 by TRi
+# 2016.10.13 by TRi
 
-VER="0.4.1"
+VER="0.4.2"
 DIST_V="$(lsb_release -r -s)"
 DIST_N="$(lsb_release -i -s)"
 
@@ -41,7 +41,7 @@ NAME_SCRIPT_KERNEL="Kernel-Script"
 function update_packages()
 {
 	echo -e "\nGoing to update the system packages first"
-	sudo apt update && sudo apt upgrade
+	sudo apt update && sudo apt upgrade -y
 }
 
 ##
@@ -50,7 +50,7 @@ function update_packages()
 function install_packages()
 {
 	echo -e "\nInstalling: $*"
-	sudo apt update && sudo apt install $*
+	sudo apt update && sudo apt install -y $*
 }
 
 ##
@@ -136,7 +136,7 @@ function install_PPA_papirus()
 	echo -e "\nInstalling Papirus Icon Theme PPA"
 	sudo add-apt-repository ppa:varlesh-l/papirus-pack
 	sudo apt update
-	sudo apt install papirus-gtk-icon-theme
+	sudo apt install -y papirus-gtk-icon-theme
 	echo "Papirus Icon Theme PPA installed"
 }
 
@@ -148,7 +148,7 @@ function install_PPA_Kodi()
 	echo -e "\nInstalling Kodi PPA"
 	sudo add-apt-repository ppa:team-xbmc/ppa
 	sudo apt update
-	sudo apt install kodi
+	sudo apt install -y kodi
 	echo "Kodi installed"
 }
 
@@ -160,7 +160,7 @@ function install_PPA_VLC()
 	echo -e "\nInstalling VLC PPA"
 	sudo add-apt-repository ppa:videolan/stable-daily
 	sudo apt update
-	sudo apt install vlc
+	sudo apt install -y vlc
 	echo "VLC Player installed"
 }
 
@@ -172,7 +172,7 @@ function install_PPA_Java()
 	echo -e "\nInstalling JAVA PPA"
 	sudo add-apt-repository ppa:webupd8team/java
 	sudo apt update
-	sudo apt install oracle-java8-installer
+	sudo apt install -y oracle-java8-installer
 	echo "Oracle Java 8 installed"
 }
 
@@ -184,7 +184,7 @@ function install_PPA_LibreOffice()
 	echo -e "\nInstalling LibreOffice PPA"
 	sudo add-apt-repository ppa:libreoffice/ppa
 	sudo apt update
-	sudo apt install libreoffice-writer libreoffice-calc libreoffice-draw libreoffice-math
+	sudo apt install -y libreoffice-writer libreoffice-calc libreoffice-draw libreoffice-math
 	echo "LibreOffice installed"
 }
 
@@ -196,7 +196,7 @@ function install_PPA_Git()
 	echo -e "\nInstalling Git PPA"
 	sudo add-apt-repository ppa:/git-core/ppa
 	sudo apt update
-	sudo apt install git
+	sudo apt install -y git
 	echo "Git installed"
 }
 
@@ -206,7 +206,7 @@ function install_PPA_Git()
 function install_ext_rust()
 {
 	echo -e "\nInstalling Rust Lang"
-	sudo apt update && sudo apt install curl
+	sudo apt update && sudo apt install -y curl
 	curl -sSf https://static.rust-lang.org/rustup.sh | sudo sh
 	echo "Rust installed"
 }
@@ -217,9 +217,9 @@ function install_ext_rust()
 function install_ext_node()
 {
 	echo -e "\nInstalling Node.js"
-	sudo apt update && sudo apt install curl
+	sudo apt update && sudo apt install -y curl
 	curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
-	sudo apt-get install -y nodejs
+	sudo apt install -y nodejs
 	echo "Node.js insalled"
 }
 
@@ -229,7 +229,7 @@ function install_ext_node()
 function install_ext_docker()
 {
 	echo -e "\nInstalling Docker"
-	sudo apt install apt-transport-https ca-certificates
+	sudo apt install -y apt-transport-https ca-certificates
 	sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 
 	file_tmp="/tmp/docker.list"
@@ -270,7 +270,7 @@ function install_ext_docker()
 	sudo cp $file_tmp $file_dst
 
 	sudo apt update
-	sudo apt install docker-engine
+	sudo apt install -y docker-engine
 	echo "Docker installed"
 }
 
