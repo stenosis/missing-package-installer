@@ -11,7 +11,10 @@ And as always: if you find it usefull, use it at your own risk.
 Following packages can be installed with *mpi*:
 
 ### System packages
-`mc htop conky imwheel git tig gdb curl python-pip keepassx gufw gparted p7zip-full bleachbit compton wmctrl build-essential kdocker terminator scrot redshift gtk-redshift geany geany-common synaptic aptitude cups csh lib32stdc++6`
+`mc htop iftop conky imwheel curl keepassx gufw gparted p7zip-full bleachbit compton wmctrl kdocker terminator scrot redshift gtk-redshift synaptic aptitude cups csh lib32stdc++6`
+
+### Developer packages
+`build-essential gdb git tig python-pip monodevelop mono-runtime geany geany-common netbeans`
 
 ### Media packages
 `vlc soundconverter easytag sound-juicer libdvdread4 brasero ubuntu-restricted-extras`
@@ -57,6 +60,32 @@ https://launchpad.net/~videolan/+archive/ubuntu/stable-daily
 ### PPA-Papirus
 Papirus Icon Theme.<br>
 https://launchpad.net/~varlesh-l/+archive/ubuntu/papirus-pack
+
+### PPA-Atom Editor
+GitHub's Atom, the hackable text editor.
+https://launchpad.net/~webupd8team/+archive/ubuntu/atom/+index <br>
+Includes following addons:
+- language-haskell
+- language-vue  
+- language-ini
+- terminal-plus
+- python-debugger
+- git-time-machine
+- git-plus
+- autocomplete-python
+- activate-power-mode
+- pdf-view
+- minimap
+- project-manager
+- bottom-dock
+- gulp-manager
+- todo-manager
+- symbols-tree-view
+- pigments
+
+### PPA-Atlassian HipChat
+Group and private chat, file sharing, and integrations.<br>
+https://de.atlassian.com/software/hipchat
 
 ### Rust Language
 The Rust Programming Language.<br>

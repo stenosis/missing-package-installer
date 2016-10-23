@@ -1,13 +1,14 @@
 # !/bin/bash
 # Missing package installer for (X)ubuntu 16.04 and 14.04.
 # A simple script for installing some of the missing software (i like to use) on new systems
-# 2016.10.13 by TRi
+# 2016.10.23 by TRi
 
-VER="0.4.2"
+VER="0.5"
 DIST_V="$(lsb_release -r -s)"
 DIST_N="$(lsb_release -i -s)"
 
-PKG_SYS="mc htop conky imwheel git tig gdb curl python-pip keepassx gufw gparted p7zip-full bleachbit compton wmctrl build-essential kdocker terminator scrot redshift gtk-redshift geany geany-common synaptic aptitude cups csh lib32stdc++6"
+PKG_SYS="mc htop iftop conky imwheel curl keepassx gufw gparted p7zip-full bleachbit compton wmctrl kdocker terminator scrot redshift gtk-redshift synaptic aptitude cups csh lib32stdc++6"
+PKG_DEV="build-essential gdb git tig python-pip monodevelop mono-runtime geany geany-common netbeans"
 PKG_MEDIA="vlc soundconverter easytag sound-juicer libdvdread4 brasero ubuntu-restricted-extras"
 PKG_OFFICE="pdfshuffler pdfchain libreoffice-impress"
 PKG_LATEX="texstudio lyx lyx-common texlive texlive-lang-german"
@@ -15,8 +16,10 @@ PKG_INET="mumble corebird filezilla polari"
 PKG_INET_14="mumble filezilla xchat-gnome"
 PKG_GFX="imagemagick inkscape gimp xsane"
 PKG_GAMES="wesnoth hedgewars gweled scummvm burgerspace"
+PKG_ATOM_EXT="terminal-plus python-debugger language-haskell git-time-machine git-plus autocomplete-python activate-power-mode pdf-view minimap project-manager language-vue bottom-dock gulp-manager todo-manager symbols-tree-view pigments language-ini"
 
 NAME_SYSTEM="System"
+NAME_DEV="Development"
 NAME_MEDIA="Media"
 NAME_OFFICE="Office"
 NAME_LATEX="LaTeX"
@@ -29,6 +32,8 @@ NAME_PPA_VLC="PPA-VLC"
 NAME_PPA_JAVA="PPA-Java"
 NAME_PPA_LIBREOFFICE="PPA-Libre"
 NAME_PPA_GIT="PPA-Git"
+NAME_PPA_ATOM="PPA-Atom"
+NAME_PPA_HIPCHAT="PPA-HipChat"
 NAME_EXT_RUST="Rust-Lang"
 NAME_EXT_NODE="Node.js"
 NAME_EXT_DOCKER="Docker"
@@ -134,7 +139,7 @@ function install_kernel_script()
 function install_PPA_papirus()
 {
 	echo -e "\nInstalling Papirus Icon Theme PPA"
-	sudo add-apt-repository ppa:varlesh-l/papirus-pack
+	sudo add-apt-repository ppa:varlesh-l/papirus-pack -y
 	sudo apt update
 	sudo apt install -y papirus-gtk-icon-theme
 	echo "Papirus Icon Theme PPA installed"
@@ -146,7 +151,7 @@ function install_PPA_papirus()
 function install_PPA_Kodi()
 {
 	echo -e "\nInstalling Kodi PPA"
-	sudo add-apt-repository ppa:team-xbmc/ppa
+	sudo add-apt-repository ppa:team-xbmc/ppa -y
 	sudo apt update
 	sudo apt install -y kodi
 	echo "Kodi installed"
@@ -158,7 +163,7 @@ function install_PPA_Kodi()
 function install_PPA_VLC()
 {
 	echo -e "\nInstalling VLC PPA"
-	sudo add-apt-repository ppa:videolan/stable-daily
+	sudo add-apt-repository ppa:videolan/stable-daily -y
 	sudo apt update
 	sudo apt install -y vlc
 	echo "VLC Player installed"
@@ -170,7 +175,7 @@ function install_PPA_VLC()
 function install_PPA_Java()
 {
 	echo -e "\nInstalling JAVA PPA"
-	sudo add-apt-repository ppa:webupd8team/java
+	sudo add-apt-repository ppa:webupd8team/java -y
 	sudo apt update
 	sudo apt install -y oracle-java8-installer
 	echo "Oracle Java 8 installed"
@@ -182,7 +187,7 @@ function install_PPA_Java()
 function install_PPA_LibreOffice()
 {
 	echo -e "\nInstalling LibreOffice PPA"
-	sudo add-apt-repository ppa:libreoffice/ppa
+	sudo add-apt-repository ppa:libreoffice/ppa -y
 	sudo apt update
 	sudo apt install -y libreoffice-writer libreoffice-calc libreoffice-draw libreoffice-math
 	echo "LibreOffice installed"
@@ -194,10 +199,37 @@ function install_PPA_LibreOffice()
 function install_PPA_Git()
 {
 	echo -e "\nInstalling Git PPA"
-	sudo add-apt-repository ppa:/git-core/ppa
+	sudo add-apt-repository ppa:/git-core/ppa -y
 	sudo apt update
 	sudo apt install -y git
 	echo "Git installed"
+}
+
+##
+# PPA: Install Atom.
+##
+function install_PPA_Atom()
+{
+	echo -e "\nInstalling Atom PPA"
+	sudo add-apt-repository ppa:webupd8team/atom -y
+	sudo apt update
+	sudo apt install -y atom
+	echo -e "\nInstalling Atom extentions"
+	apm install $PKG_ATOM_EXT
+	echo "Atom installed"
+}
+
+##
+# PPA: Atlassian HipChat 4
+##
+function install_PPA_HIPCHAT()
+{
+	echo -e "\nInstalling Atlassian HipChat PPA"
+	sudo sh -c 'echo "deb https://atlassian.artifactoryonline.com/atlassian/hipchat-apt-client $(lsb_release -c -s) main" > /etc/apt/sources.list.d/atlassian-hipchat4.list'
+	wget -O - https://atlassian.artifactoryonline.com/atlassian/api/gpg/key/public | sudo apt-key add -
+	sudo apt update
+	sudo apt install -y hipchat4
+	echo "Atlassian HipChat installed"
 }
 
 ##
@@ -284,8 +316,9 @@ fi
 
 ## Choose dialog
 DISTROS=$(whiptail --title "Missing Package Installer V$VER" --checklist \
-"Choose missing software packages to install" 24 66 18 \
+"Choose missing software packages to install" 27 66 21 \
 $NAME_SYSTEM " - System core software" OFF \
+$NAME_DEV " - Development software" OFF \
 $NAME_MEDIA " - Multimedia software" OFF \
 $NAME_OFFICE " - Office software" OFF \
 $NAME_LATEX " - LaTeX software"  OFF \
@@ -298,6 +331,8 @@ $NAME_PPA_LIBREOFFICE " - The latest LibreOffice" OFF \
 $NAME_PPA_KODI " - The latest Kodi" OFF \
 $NAME_PPA_VLC " - The latest VLC" OFF \
 $NAME_PPA_PAPIRUS " - Papirus Icon Theme" OFF \
+$NAME_PPA_ATOM " - Atom hackable text editor" OFF \
+$NAME_PPA_HIPCHAT " - Atlassian HipChat4" OFF \
 $NAME_EXT_RUST " - Install Rust Language" OFF \
 $NAME_EXT_NODE " - Install Node.js" OFF \
 $NAME_EXT_DOCKER " - Install Docker" OFF \
@@ -374,6 +409,12 @@ if [ $exitstatus = 0 ]; then
 
 	case "${DISTROS[@]}" in *$NAME_PPA_GIT*)
 		install_PPA_Git ;; esac
+
+	case "${DISTROS[@]}" in *$NAME_PPA_ATOM*)
+		install_PPA_Atom ;; esac
+
+	case "${DISTROS[@]}" in *$NAME_PPA_HIPCHAT*)
+		install_PPA_HIPCHAT ;; esac
 
 
 	## External
