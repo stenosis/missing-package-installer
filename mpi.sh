@@ -40,6 +40,9 @@ NAME_EXT_DOCKER="Docker"
 NAME_SCRIPT_UPDATE="Update-Script"
 NAME_SCRIPT_KERNEL="Kernel-Script"
 
+user=$USER
+echo 'Hello ' $user
+
 ##
 # Updates the already installed packages.
 ##
@@ -303,6 +306,7 @@ function install_ext_docker()
 
 	sudo apt update
 	sudo apt install -y docker-engine
+	sudo usermod -aG docker $user
 	echo "Docker installed"
 }
 
