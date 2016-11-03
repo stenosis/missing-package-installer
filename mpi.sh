@@ -303,6 +303,7 @@ function install_ext_docker()
 
 	sudo apt update
 	sudo apt install -y docker-engine
+	sudo usermod -aG docker $USER
 	echo "Docker installed"
 }
 
