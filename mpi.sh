@@ -1,9 +1,9 @@
 # !/bin/bash
 # Missing package installer for (X)ubuntu 16.04 and 14.04.
 # A simple script for installing some of the missing software (i like to use) on new systems
-# 2016.10.23 by TRi
+# 2016.11.12 by TRi
 
-VER="0.5"
+VER="0.5.1"
 DIST_V="$(lsb_release -r -s)"
 DIST_N="$(lsb_release -i -s)"
 
@@ -26,7 +26,6 @@ NAME_LATEX="LaTeX"
 NAME_INET="Internet"
 NAME_GFX="Graphics"
 NAME_GAMES="Games"
-NAME_PPA_PAPIRUS="PPA-Papirus"
 NAME_PPA_KODI="PPA-Kodi"
 NAME_PPA_VLC="PPA-VLC"
 NAME_PPA_JAVA="PPA-Java"
@@ -131,18 +130,6 @@ function install_kernel_script()
 	sudo cp $file_tmp $file_dst
 	sudo chmod a+x $file_dst
 	echo "Installation of script to remove old kernels complete. Run 'remove-old-kernels'"
-}
-
-##
-# PPA: Install Papirus Icon Theme.
-##
-function install_PPA_papirus()
-{
-	echo -e "\nInstalling Papirus Icon Theme PPA"
-	sudo add-apt-repository ppa:varlesh-l/papirus-pack -y
-	sudo apt update
-	sudo apt install -y papirus-gtk-icon-theme
-	echo "Papirus Icon Theme PPA installed"
 }
 
 ##
@@ -317,7 +304,7 @@ fi
 
 ## Choose dialog
 DISTROS=$(whiptail --title "Missing Package Installer V$VER" --checklist \
-"Choose missing software packages to install" 27 66 21 \
+"Choose missing software packages to install" 27 66 20 \
 $NAME_SYSTEM " - System core software" OFF \
 $NAME_DEV " - Development software" OFF \
 $NAME_MEDIA " - Multimedia software" OFF \
@@ -331,7 +318,6 @@ $NAME_PPA_GIT " - The latest Git" OFF \
 $NAME_PPA_LIBREOFFICE " - The latest LibreOffice" OFF \
 $NAME_PPA_KODI " - The latest Kodi" OFF \
 $NAME_PPA_VLC " - The latest VLC" OFF \
-$NAME_PPA_PAPIRUS " - Papirus Icon Theme" OFF \
 $NAME_PPA_ATOM " - Atom hackable text editor" OFF \
 $NAME_PPA_HIPCHAT " - Atlassian HipChat4" OFF \
 $NAME_EXT_RUST " - Install Rust Language" OFF \
@@ -393,9 +379,6 @@ if [ $exitstatus = 0 ]; then
 
 
 	## PPAs
-	case "${DISTROS[@]}" in *$NAME_PPA_PAPIRUS*)
-		install_PPA_papirus ;; esac
-
 	case "${DISTROS[@]}" in *$NAME_PPA_KODI*)
 		install_PPA_Kodi ;; esac
 

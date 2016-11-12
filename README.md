@@ -57,10 +57,6 @@ https://launchpad.net/~team-xbmc/+archive/ubuntu/ppa
 VLC Daily Build of stable branch<br>
 https://launchpad.net/~videolan/+archive/ubuntu/stable-daily
 
-### PPA-Papirus
-Papirus Icon Theme.<br>
-https://launchpad.net/~varlesh-l/+archive/ubuntu/papirus-pack
-
 ### PPA-Atom Editor
 GitHub's Atom, the hackable text editor.
 https://launchpad.net/~webupd8team/+archive/ubuntu/atom/+index <br>
