@@ -249,7 +249,7 @@ function install_ext_node()
 {
 	echo -e "\nInstalling Node.js"
 	sudo apt update && sudo apt install -y curl
-	curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+	curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 	sudo apt install -y nodejs
 	echo "Node.js insalled"
 }
